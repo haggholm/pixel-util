@@ -5,10 +5,10 @@ imageType= require 'image-type'
 mime= require 'mime'
 
 # Mime settings
-mime.define 'image/vnd.ms-photo':['jxr']
-mime.extensions['image/vnd.ms-photo']= 'jxr'
-mime.extensions['image/jpeg']= 'jpg'
-mime.extensions['image/tiff']= 'tif'
+mime.define 'image/vnd.ms-photo':['jxr'], true
+mime.define 'image/vnd.ms-photo':['jxr'], true
+mime.define 'image/jpeg':['jpg'], true
+mime.define 'image/tiff':['tif'], true
 
 # Public
 class PixelType
@@ -119,10 +119,10 @@ class PixelType
     imageType buffer
 
   lookupImageType: (url)->
-    mimeType= mime.lookup url
+    mimeType= mime.getType url
 
     mime: mimeType
-    ext: mime.extension mimeType
+    ext: mime.getExtension mimeType
 
   getBuffer: (datauri)->
     new Buffer (datauri.slice datauri.indexOf(',')+1),'base64'
